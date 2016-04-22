@@ -17,7 +17,11 @@ export default observer(function Layout ({children}) {
       backgroundColor: '#43de0a'
     }}> <Navbar.Header>
       <Navbar.Brand>
-        Name
+        <object style={{
+          height: 69,
+          marginBottom: -13
+        }} data="images/logo-white-full.svg" type="image/svg+xml">
+        </object>
       </Navbar.Brand>
     </Navbar.Header>
       <Nav>
