@@ -15,19 +15,28 @@ module.exports = {
     publicPath: '/static/'
   },
   plugins: [
-    new webpack.HotModuleReplacementPlugin()
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.DefinePlugin({
+      'process.env.NODE_ENV': '"development"'
+    })
   ],
-  module: {
-    loaders: [{
-      test: /\.js$/,
-      loaders: ['babel'],
-      include: path.join(__dirname, 'src')
-    },
-    {test: /\.css$/, loader: 'style-loader!css-loader'},
-    {
-      test: /\.less$/,
-      loader: "style!css!less"
+  resolve: {
+    alias: {
+      config: path.join(__dirname, 'config', process.env.NODE_ENV || 'development')
     }
-  ]
+  },
+  module: {
+    loaders: [
+      {
+        test: /\.js$/,
+        loaders: ['babel'],
+        include: path.join(__dirname, 'src')
+      },
+      {test: /\.css$/, loader: 'style-loader!css-loader'},
+      {
+        test: /\.less$/,
+        loader: 'style!css!less'
+      }
+    ]
   }
 }

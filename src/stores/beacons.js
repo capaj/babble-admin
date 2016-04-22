@@ -1,9 +1,15 @@
-import {observable} from 'mobx'
+import {observable, computed} from 'mobx'
 import fetch from 'whatwg-fetch'
+import config from 'config'
 
 class Beacon {
   constructor (json) {
-    Object.assign(this, json)
+    const obs = observable(json)
+
+    setInterval(() => {
+      obs.users.current += 2
+    }, 2000)
+    return obs
   }
   changeStatus (enabled) {
     console.log('changing status to', enabled)

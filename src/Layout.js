@@ -58,8 +58,7 @@ export default observer(function Layout ({children}) {
         </Table>
       </div>
       <Button bsStyle='success'>
-        <Glyphicon glyph='glyphicon glyphicon-plus-sign'>
-        </Glyphicon> Add new beacon
+        <Glyphicon glyph='glyphicon glyphicon-plus-sign'/>Add new beacon
       </Button>
       <Modal show={state.showModal}>
         <Modal.Header>
