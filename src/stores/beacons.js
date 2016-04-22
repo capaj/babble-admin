@@ -11,11 +11,8 @@ class Beacon {
   }
 }
 
-const makeBeacons = (arr) => {
-  return arr.map((json) => new Beacon(json))
-}
-
-export default observable(makeBeacons([
+const beacons = observable([])
+Promise.resolve([
   {
     "name": "Kavarna The Farm",
     "id": "EDD1EBEAC04E5DEFA017-0BDB87539B67",
@@ -56,4 +53,10 @@ export default observable(makeBeacons([
     "latitude": 14.4160084,
     "longitude": 50.1010032
   }
-]))
+]).then((json) => {
+  json.forEach((beacon) => {
+    beacons.push(new Beacon(beacon))
+  })
+})
+
+export default beacons

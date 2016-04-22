@@ -4,7 +4,7 @@ import beacons from './stores/beacons'
 import {observer} from 'mobx-react'
 import {observable} from 'mobx'
 import BeaconRow from './components/BeaconRow'
-import { Modal, FormGroup, ControlLabel, FormControl, Navbar, Nav, NavItem } from 'react-bootstrap'
+import { Modal, FormGroup, ControlLabel, FormControl, Glyphicon, Navbar, Nav, NavItem } from 'react-bootstrap'
 
 const state = observable({
   showModal: false,
@@ -39,7 +39,7 @@ export default observer(function Layout ({children}) {
         }}>
           <thead>
             <tr>
-              <th>Enable/disable</th>
+              <th>State</th>
               <th>Label</th>
               <th>Category</th>
               <th>Description</th>
@@ -57,7 +57,10 @@ export default observer(function Layout ({children}) {
           </tbody>
         </Table>
       </div>
-      <Button bsStyle='success'>Add</Button>
+      <Button bsStyle='success'>
+        <Glyphicon glyph='glyphicon glyphicon-plus-sign'>
+        </Glyphicon> Add new beacon
+      </Button>
       <Modal show={state.showModal}>
         <Modal.Header>
           <Modal.Title>Edit beacon {state.selected.label}</Modal.Title>

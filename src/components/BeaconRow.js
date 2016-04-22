@@ -21,7 +21,7 @@ export default observer((props) => {
     <td onClick={() => {
       props.onEdit(beacon)
     }} style={cursorPointer}>{beacon.name}</td>
-    <td>{beacon.users.current}/{beacon.users.total}</td>
+    <td>{beacon.users.current} / {beacon.users.total}</td>
     <td><a href={gmapLink}>{beacon.latitude}, {beacon.longitude}</a></td>
   </tr>
 })
