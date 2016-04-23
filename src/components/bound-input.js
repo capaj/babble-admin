@@ -1,5 +1,7 @@
 import React, {PropTypes} from 'react'
-import {observer} from 'mobservable-react'
+import {observer} from 'mobx-react'
+import { FormControl } from 'react-bootstrap'
+
 import _ from 'lodash'
 const boundToProps = new WeakMap()
 
@@ -37,7 +39,7 @@ const BoundInput = (props) => {
   }
   var propsToPass = _.omit(props, 'onChange')
 
-  return <input className={cln} autoComplete={props.autocomplete} value={defVal} defaultValue={defVal} onChange={(ev) => {
+  return <FormControl className={cln} autoComplete={props.autocomplete} defaultValue={defVal} onChange={(ev) => {
     const {value} = ev.target
     if (value || value === '') {  // onChange gets triggered even when invalid key is pressed(for example 'a' key on an input of type number)
       if (stateObj) {

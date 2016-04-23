@@ -9,7 +9,7 @@ const cursorPointer = {
 
 export default observer((props) => {
   const {beacon} = props
-  const gmapLink = `https://www.google.com/maps/preview/@${beacon.latitude},${beacon.longitude},8z`
+  const gmapLink = `https://www.google.com/maps/preview/@${beacon.longitude},${beacon.latitude},19.5z`
   let rowContent = <div>Loading...</div>
   if (beacon.users) {
     rowContent = <tr>

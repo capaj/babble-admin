@@ -6,6 +6,7 @@ import {observable} from 'mobx'
 import BeaconRow from './components/BeaconRow'
 import { Modal, FormGroup, ControlLabel, FormControl, Glyphicon, Navbar, Nav, NavItem } from 'react-bootstrap'
 import NotificationSystem from 'react-notification-system'
+import BoundInput from './components/bound-input'
 
 const state = observable({
   showModal: false,
@@ -75,13 +76,14 @@ export default observer(function Layout ({children}) {
         <Modal.Body>
           <FormGroup>
             <ControlLabel>Category</ControlLabel>
-            <FormControl type='text' placeholder='e.g. Train'
-              value={state.selected.category}/>
+            <BoundInput
+              type='text' placeholder='e.g. Train'
+              source={state.selected} name='category'/>
           </FormGroup>
           <FormGroup>
             <ControlLabel>Description</ControlLabel>
-            <FormControl type='text' placeholder='e.g. under the 2nd seat in the back'
-              value={state.selected.name}/>
+            <BoundInput type='text' placeholder='e.g. under the 2nd seat in the back'
+              source={state.selected} name='name'/>
           </FormGroup>
         </Modal.Body>
 

@@ -5,8 +5,14 @@ import config from 'config'
 function beacon (json) {
   const obs = observable(json)
 
-  setInterval(() => {
-    obs.users.current += 2
+  setInterval(() => { // fake live updating the data
+    const incr = Math.round(Math.random()) * 2 - 1
+    if (obs.users.current + incr >= 0) {
+      obs.users.current += incr
+      if (incr > 0) {
+        obs.users.total += incr
+      }
+    }
   }, 2000)
   obs.changeStatus = (enabled) => {
     console.log('changing status to', enabled)
@@ -24,7 +30,7 @@ const beacons = observable([])
 Promise.resolve([
   {
     "name": "Kavarna The Farm",
-    "id": "EDD1EBEAC04E5DEFA017-0BDB87539B67",
+    "uuid": "EDD1EBEAC04E5DEFA017-0BDB87539B67",
     "label": "DjBx",
     "active": true,
     "category": "coffeshop",
@@ -37,26 +43,26 @@ Promise.resolve([
     "longitude": 50.1010032
   }, {
     "name": "Brno salina",
-    "id": "EDD1EBEAC04E5DEFA017-0BDB87539B67",
+    "uuid": "EDD1EBEAC04E5DEFA017-0BDB87539B67",
     "label": "xgDa",
     "active": false,
     "category": "tram",
     "users": {
-      "current": 1,
-      "total": 2
+      "current": 2,
+      "total": 200
     },
     "stationary": true,
     "latitude": 14.4160084,
     "longitude": 50.1010032
   }, {
     "name": "Brno salina",
-    "id": "EDD1EBEAC04E5DEFA017-0BDB87539B67",
+    "uuid": "EDD1EBEAC04E5DEFA017-0BDB87539B67",
     "label": "feFfD",
     "active": false,
     "category": "train",
     "users": {
-      "current": 1,
-      "total": 2
+      "current": 3,
+      "total": 634
     },
     "stationary": true,
     "latitude": 14.4160084,
