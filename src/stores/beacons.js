@@ -9,18 +9,19 @@ function beacon (json) {
       current: 0,
       total: 0
     }
+  } else {
+    setInterval(() => { // fake live updating the data
+      const incr = Math.round(Math.random()) * 2 - 1
+      if (obs.users.current + incr >= 0) {
+        obs.users.current += incr
+        if (incr > 0) {
+          obs.users.total += incr
+        }
+      }
+    }, 2000)
   }
   const obs = observable(json)
 
-  setInterval(() => { // fake live updating the data
-    const incr = Math.round(Math.random()) * 2 - 1
-    if (obs.users.current + incr >= 0) {
-      obs.users.current += incr
-      if (incr > 0) {
-        obs.users.total += incr
-      }
-    }
-  }, 2000)
   obs.changeStatus = (enabled) => {
     console.log('changing status to', enabled)
     obs.active = enabled
