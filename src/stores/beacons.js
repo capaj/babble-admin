@@ -2,19 +2,22 @@ import {observable, computed} from 'mobx'
 import fetch from 'whatwg-fetch'
 import config from 'config'
 
-class Beacon {
-  constructor (json) {
-    const obs = observable(json)
+function beacon (json) {
+  const obs = observable(json)
 
-    setInterval(() => {
-      obs.users.current += 2
-    }, 2000)
-    return obs
-  }
-  changeStatus (enabled) {
+  setInterval(() => {
+    obs.users.current += 2
+  }, 2000)
+  obs.changeStatus = (enabled) => {
     console.log('changing status to', enabled)
-    this.active = enabled
+    obs.active = enabled
+    return obs.update()
   }
+  obs.update = () => {
+    // todo call PUT to server
+    return Promise.resolve(null)
+  }
+  return obs
 }
 
 const beacons = observable([])
@@ -60,8 +63,8 @@ Promise.resolve([
     "longitude": 50.1010032
   }
 ]).then((json) => {
-  json.forEach((beacon) => {
-    beacons.push(new Beacon(beacon))
+  json.forEach((item) => {
+    beacons.push(beacon(item))
   })
 })
 

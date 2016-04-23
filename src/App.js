@@ -5,10 +5,10 @@ import { Router, Route } from 'react-router'
 
 export default class App extends Component {
   render () {
-    return (
+    return <div>
       <Router history={browserHistory}>
         <Route path='/' component={Layout}/>
       </Router>
-    )
+    </div>
   }
 }

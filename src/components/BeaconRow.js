@@ -14,7 +14,7 @@ export default observer((props) => {
   if (beacon.users) {
     rowContent = <tr>
       <td>
-        <BeaconSwitch defaultChecked={beacon.active} beacon={beacon}/>
+        <BeaconSwitch defaultChecked={beacon.active} beacon={beacon} notifs={props.notifs}/>
       </td>
       <td>{beacon.label}</td>
       <td onClick={() => {

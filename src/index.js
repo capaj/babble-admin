@@ -12,7 +12,7 @@ ReactDOM.render(
 if (module.hot) {
   module.hot.accept('./App', () => {
     ReactDOM.render(
-      <AppContainer component={require('./App').default} />,
+      <AppContainer component={require('./App').default}/>,
       rootEl
     )
   })

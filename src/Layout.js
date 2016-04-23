@@ -5,11 +5,14 @@ import {observer} from 'mobx-react'
 import {observable} from 'mobx'
 import BeaconRow from './components/BeaconRow'
 import { Modal, FormGroup, ControlLabel, FormControl, Glyphicon, Navbar, Nav, NavItem } from 'react-bootstrap'
+import NotificationSystem from 'react-notification-system'
 
 const state = observable({
   showModal: false,
   selected: {}
 })
+
+let notifSystem = null
 
 export default observer(function Layout ({children}) {
   return <div>
@@ -32,7 +35,11 @@ export default observer(function Layout ({children}) {
       </Nav>
     </Navbar>
     <div className='container'>
-
+      <NotificationSystem ref={(notifs) => {
+        if (notifs) {
+          notifSystem = notifs
+        }
+      }}/>
       <div>
         <Table responsive style={{
           backgroundColor: 'white'
@@ -49,7 +56,7 @@ export default observer(function Layout ({children}) {
           </thead>
           <tbody>
             {beacons.map((beac) => {
-              return <BeaconRow key={beac.label} beacon={beac} onEdit={(beacon) => {
+              return <BeaconRow notifs={notifSystem} key={beac.label} beacon={beac} onEdit={(beacon) => {
                 state.selected = beacon
                 state.showModal = true
               }}/>
@@ -83,7 +90,17 @@ export default observer(function Layout ({children}) {
             state.showModal = false
           }}>Close</Button>
           <Button bsStyle='primary' onClick={() => {
-            state.selected.update()
+            state.selected.update().then(() => {
+              notifSystem.addNotification({
+                message: 'Beacon saved',
+                level: 'success'
+              })
+            }, (err) => {
+              notifSystem.addNotification({
+                message: 'Beacon save failed',
+                level: 'error'
+              })
+            })
             state.showModal = false
           }}>Save changes</Button>
         </Modal.Footer>
