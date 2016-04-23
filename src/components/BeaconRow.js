@@ -4,7 +4,10 @@ import BeaconSwitch from './BeaconSwitch'
 import { Modal, Button, FormGroup, ControlLabel, Glyphicon, FormControl } from 'react-bootstrap'
 
 const cursorPointer = {
-  cursor: 'pointer'
+  cursor: 'pointer',
+  // whiteSpace: 'nowrap',
+  maxWidth: 140,
+  overflow: 'hidden'
 }
 
 export default observer((props) => {
