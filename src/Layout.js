@@ -35,7 +35,7 @@ export default observer(function Layout ({children}) {
         <NavItem eventKey={1} href='/'>Your beacons</NavItem>
       </Nav>
     </Navbar>
-    <div className='container'>
+    <div className='container-fluid'>
       <NotificationSystem ref={(notifs) => {
         if (notifs) {
           notifSystem = notifs
