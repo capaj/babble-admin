@@ -57,7 +57,7 @@ export default observer(function Layout ({children}) {
           </thead>
           <tbody>
             {beacons.map((beac) => {
-              return <BeaconRow notifs={notifSystem} key={beac.label} beacon={beac} onEdit={(beacon) => {
+              return <BeaconRow notifs={notifSystem} key={beac.name} beacon={beac} onEdit={(beacon) => {
                 state.selected = beacon
                 state.showModal = true
               }}/>

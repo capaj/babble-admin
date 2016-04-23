@@ -1,8 +1,15 @@
 import {observable, computed} from 'mobx'
-import fetch from 'whatwg-fetch'
+import 'whatwg-fetch'
 import config from 'config'
+import profile from './profile'
 
 function beacon (json) {
+  if (!json.users) {
+    json.users = {
+      current: 0,
+      total: 0
+    }
+  }
   const obs = observable(json)
 
   setInterval(() => { // fake live updating the data
@@ -27,51 +34,59 @@ function beacon (json) {
 }
 
 const beacons = observable([])
-Promise.resolve([
-  {
-    "name": "Kavarna The Farm",
-    "uuid": "EDD1EBEAC04E5DEFA017-0BDB87539B67",
-    "label": "DjBx",
-    "active": true,
-    "category": "coffeshop",
-    "users": {
-      "current": 1,
-      "total": 2
-    },
-    "stationary": true,
-    "latitude": 14.4160084,
-    "longitude": 50.1010032
-  }, {
-    "name": "Brno salina",
-    "uuid": "EDD1EBEAC04E5DEFA017-0BDB87539B67",
-    "label": "xgDa",
-    "active": false,
-    "category": "tram",
-    "users": {
-      "current": 2,
-      "total": 200
-    },
-    "stationary": true,
-    "latitude": 14.4160084,
-    "longitude": 50.1010032
-  }, {
-    "name": "Brno salina",
-    "uuid": "EDD1EBEAC04E5DEFA017-0BDB87539B67",
-    "label": "feFfD",
-    "active": false,
-    "category": "train",
-    "users": {
-      "current": 3,
-      "total": 634
-    },
-    "stationary": true,
-    "latitude": 14.4160084,
-    "longitude": 50.1010032
-  }
-]).then((json) => {
-  json.forEach((item) => {
-    beacons.push(beacon(item))
+console.log(profile.id)
+fetch(`${config.api }/users/10208142238866391/beacons`)
+// fetch(`${config.api }/users/${profile.id}/beacons`)
+  .then(function (response) {
+    return response.json()
+  }).then(function (json) {
+    json = json.concat([
+      {
+        "label": "Kavarna The Farm",
+        "uuid": "EDD1EBEAC04E5DEFA017-0BDB87539B67",
+        "name": "DjBx",
+        "active": true,
+        "category": "coffeshop",
+        "users": {
+          "current": 1,
+          "total": 2
+        },
+        "stationary": true,
+        "latitude": 14.160084,
+        "longitude": 51.010032
+      }, {
+        "label": "Brno salina",
+        "uuid": "EDD1EBEAC04E5DEFA017-0BDB87539B67",
+        "name": "xgda",
+        "active": false,
+        "category": "tram",
+        "users": {
+          "current": 2,
+          "total": 200
+        },
+        "stationary": true,
+        "latitude": 15.084,
+        "longitude": 49.32
+      }, {
+        "label": "Brno salina",
+        "uuid": "EDD1EBEAC04E5DEFA017-0BDB87539B67",
+        "name": "feFfD",
+        "active": false,
+        "category": "train",
+        "users": {
+          "current": 3,
+          "total": 634
+        },
+        "stationary": true,
+        "latitude": 14.4160084,
+        "longitude": 50.1010032
+      }
+    ])
+    json.forEach((item) => {
+      beacons.push(beacon(item))
+    })
+  }).catch(function(ex) {
+    console.error('parsing failed', ex)
   })
-})
 
 export default beacons
