@@ -70,7 +70,7 @@ export default observer(function Layout ({children}) {
       </Button>
       <Modal show={state.showModal}>
         <Modal.Header>
-          <Modal.Title>Edit beacon {state.selected.label}</Modal.Title>
+          <Modal.Title>Edit beacon {state.selected.name}</Modal.Title>
         </Modal.Header>
 
         <Modal.Body>
@@ -83,7 +83,7 @@ export default observer(function Layout ({children}) {
           <FormGroup>
             <ControlLabel>Description</ControlLabel>
             <BoundInput type='text' placeholder='e.g. under the 2nd seat in the back'
-              source={state.selected} name='name'/>
+              source={state.selected} name='label'/>
           </FormGroup>
         </Modal.Body>
 
