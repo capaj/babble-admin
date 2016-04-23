@@ -17,7 +17,7 @@ let notifSystem = null
 
 export default observer(function Layout ({children}) {
   return <div>
-    <Navbar style={{
+    <Navbar fluid={true} style={{
       backgroundColor: '#43de0a'
     }}> <Navbar.Header>
       <Navbar.Brand>
@@ -51,7 +51,8 @@ export default observer(function Layout ({children}) {
               <th>Label</th>
               <th>Category</th>
               <th>Description</th>
-              <th>Current users/total</th>
+              {// <th>Current users/total</th>
+              }
               <th>Last known location</th>
             </tr>
           </thead>

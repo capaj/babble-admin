@@ -39,7 +39,8 @@ export default observer((props) => {
       <td onClick={() => {
         props.onEdit(beacon)
       }} style={cursorPointer}>{beacon.label}</td>
-      <td>{beacon.users.current} / {beacon.users.total}</td>
+    {// <td>{beacon.users.current} / {beacon.users.total}</td>
+}
       <td>{locationCellContent}</td>
     </tr>
   }
