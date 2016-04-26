@@ -1,6 +1,5 @@
 import {observable, computed} from 'mobx'
-import 'whatwg-fetch'
-import config from 'config'
+import api from '../api.js'
 import profile from './profile'
 
 function beacon (json) {
@@ -29,65 +28,75 @@ function beacon (json) {
   }
   obs.update = () => {
     // todo call PUT to server
-    return Promise.resolve(null)
+    return api.put(`${config.api}/beacons/${beacon.uuid}`, {
+      method: 'PUT',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        active: obs.active,
+        label: obs.label
+      })
+    })
   }
   return obs
 }
 
 const beacons = observable([])
 console.log(profile.id)
-fetch(`${config.api }/users/10208142238866391/beacons`)
 // fetch(`${config.api }/users/${profile.id}/beacons`)
-  .then(function (response) {
-    return response.json()
-  }).then(function (json) {
-    json = json.concat([
-      {
-        "label": "Kavarna The Farm",
-        "uuid": "EDD1EBEAC04E5DEFA017-0BDB87539B67",
-        "name": "DjBx",
-        "active": true,
-        "category": "coffeshop",
-        "users": {
-          "current": 1,
-          "total": 2
-        },
-        "stationary": true,
-        "latitude": 14.160084,
-        "longitude": 51.010032
-      }, {
-        "label": "Brno salina",
-        "uuid": "EDD1EBEAC04E5DEFA017-0BDB87539B67",
-        "name": "xgda",
-        "active": false,
-        "category": "tram",
-        "users": {
-          "current": 2,
-          "total": 200
-        },
-        "stationary": true,
-        "latitude": 15.084,
-        "longitude": 49.32
-      }, {
-        "label": "Brno salina",
-        "uuid": "EDD1EBEAC04E5DEFA017-0BDB87539B67",
-        "name": "feFfD",
-        "active": false,
-        "category": "train",
-        "users": {
-          "current": 3,
-          "total": 634
-        },
-        "stationary": true,
-        "latitude": 14.4160084,
-        "longitude": 50.1010032
-      }
-    ])
-    json.forEach((item) => {
-      beacons.push(beacon(item))
-    })
-  }).catch(function(ex) {
-    console.error('parsing failed', ex)
+
+api.get(`/users/10208142238866391/beacons`)
+.then(function (res) {
+  const json = res.data.concat([
+    {
+      "label": "Kavarna The Farm",
+      "uuid": "EDD1EBEAC04E5DEFA017-0BDB87539B67",
+      "name": "DjBx",
+      "active": true,
+      "category": "coffeshop",
+      "users": {
+        "current": 1,
+        "total": 2
+      },
+      "stationary": true,
+      "latitude": 14.160084,
+      "longitude": 51.010032
+    }, {
+      "label": "Brno salina",
+      "uuid": "EDD1EBEAC04E5DEFA017-0BDB87539B67",
+      "name": "xgda",
+      "active": false,
+      "category": "tram",
+      "users": {
+        "current": 2,
+        "total": 200
+      },
+      "stationary": true,
+      "latitude": 15.084,
+      "longitude": 49.32
+    }, {
+      "label": "Brno salina",
+      "uuid": "EDD1EBEAC04E5DEFA017-0BDB87539B67",
+      "name": "feFfD",
+      "active": false,
+      "category": "train",
+      "users": {
+        "current": 3,
+        "total": 634
+      },
+      "stationary": true,
+      "latitude": 14.4160084,
+      "longitude": 50.1010032
+    }
+  ])
+  json.forEach((item) => {
+    beacons.push(beacon(item))
   })
+  console.log(json)
+}).catch(function( ex) {
+  console.error('parsing failed', ex)
+})
 
 export default beacons
